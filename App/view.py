@@ -37,7 +37,25 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Consultar los videos con más vistas y que son tendencia en un país")
+    print("3- Consultar video que ha sido tendencia para un país")
+    print("4- Consultar video que más dias ha sido tendencia para una categoría")
+    print("5- Consultar videos con más likes en un pais")
+    print("0- Salir")
+
+def initCatalog():
+    """
+    Inicializa el catalogo de videos
+    """
+    return controller.initCatalog()
+
+def loadData(catalog):
+    """
+    Carga los videos en la estructura de datos
+    """
+    controller.loadData(catalog)
+
+
 
 catalog = None
 
@@ -56,3 +74,4 @@ while True:
     else:
         sys.exit(0)
 sys.exit(0)
+

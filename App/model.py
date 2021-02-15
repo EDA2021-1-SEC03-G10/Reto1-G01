@@ -24,7 +24,6 @@
  * Dario Correal - Version inicial
  """
 
-
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -37,7 +36,42 @@ los mismos.
 
 # Construccion de modelos
 
-# Funciones para agregar informacion al catalogo
+def newCatalog():
+    """
+    Inicializa el catálogo de videos. Crea una lista vacia para guardar
+    todos los videos. Adicionalmente crea una lista vacia para guardar el título, el canal, 
+    fecha de tendencia, pais, vistas, me gusta, no me gusta. Retorna el catalogo inicializado.
+    title, cannel_title, trending_date, country, views, likes, dislikes
+    """
+    catalog = {'videos': None,
+               'title': None,
+               'cannel_title': None,
+               'trending_date': None,
+               'country': None,
+               'views': None,
+               'likes': None,
+               'dislikes': None}
+
+    catalog['videos'] = lt.newList()
+    catalog['title'] = lt.newList('SINGLE_LINKED',
+                                    cmpfunction=comparetitle)
+    catalog['cannel_title'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparecannel_title)
+    catalog['trending_date'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparetrending_date)
+    catalog['cannel_title'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparecannel_title)
+    catalog['country'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparecountry)
+    catalog['views'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=compareviews)
+    catalog['likes'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparelikes)
+    catalog['dislikes'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=comparedislikes)
+
+    return catalog
+
 
 # Funciones para creacion de datos
 
