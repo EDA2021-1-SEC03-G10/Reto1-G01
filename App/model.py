@@ -50,6 +50,7 @@ def newCatalog():
                'tags': None}
 
     catalog['videos'] = lt.newList()
+    ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
     catalog['channels'] = lt.newList('SINGLE_LINKED',
                                     cmpfunction = None)
     catalog['categories'] = lt.newList('SINGLE_LINKED',
@@ -76,15 +77,15 @@ def addVideo(catalog, video):
     lt.addLast(catalog['countries'], country)
     #Se obtienen los tags de cada video
     tags = video['tags'].split("|")
-    # Cada autor, se crea en la lista de libros del catalogo, y se
-    # crea un libro en la lista de dicho autor (apuntador al libro)
+    # Cada tag, se crea en la lista de videos del catalogo, y se
+    # crea un video en la lista de dicho tag (apuntador al video)
     for tag in tags:
         lt.addLast(catalog['tags'], tag)
 
 def addCountry(catalog, countryname, video):
     """
-    Adiciona un autor a lista de autores, la cual guarda referencias
-    a los libros de dicho autor
+    Adiciona un pais a lista de videos, la cual guarda referencias
+    a los videos de dicho pais
     """
     countries = catalog['countries']
     poscountry = lt.isPresent(countries, countryname)
@@ -93,6 +94,7 @@ def addCountry(catalog, countryname, video):
         country = lt.getElement(countries, poscountry)
         
     ##########newCountry: se debe realizar más adelante
+
     else:
         country  = newContry(countryname)
         lt.addLast(countries, country)
