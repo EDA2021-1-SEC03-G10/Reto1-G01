@@ -44,34 +44,59 @@ def newCatalog():
     title, cannel_title, trending_date, country, views, likes, dislikes
     """
     catalog = {'videos': None,
-               'title': None,
-               'cannel_title': None,
-               'trending_date': None,
-               'country': None,
-               'views': None,
-               'likes': None,
-               'dislikes': None}
+               'channels': None,
+               'categories':None,
+               'countries':None,
+               'tags': None}
 
     catalog['videos'] = lt.newList()
-    catalog['title'] = lt.newList('SINGLE_LINKED',
-                                    cmpfunction=comparetitle)
-    catalog['cannel_title'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparecannel_title)
-    catalog['trending_date'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparetrending_date)
-    catalog['cannel_title'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparecannel_title)
-    catalog['country'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparecountry)
-    catalog['views'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=compareviews)
-    catalog['likes'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparelikes)
-    catalog['dislikes'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=comparedislikes)
+    catalog['channels'] = lt.newList('SINGLE_LINKED',
+                                    cmpfunction = None)
+    catalog['categories'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction = None)
+    catalog['countries'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction = None)
+    catalog['tags'] = lt.newList('SINGLE_LINKED',
+                                 cmpfunction=None)
+
 
     return catalog
 
+# Funciones para agregar informacion al catalogo
+
+
+def addVideo(catalog, video):
+    # Se adiciona el video a la lista de videos
+    lt.addLast(catalog['videos'], video)
+    # Se obtienen los canales de cada video y se adicionan
+    channel = video['channels']
+    lt.addLast(catalog['channels'], channel)
+    # Se obtienen los paises de cada video y se adicionan
+    country = video['countries']
+    lt.addLast(catalog['countries'], country)
+    #Se obtienen los tags de cada video
+    tags = video['tags'].split("|")
+    # Cada autor, se crea en la lista de libros del catalogo, y se
+    # crea un libro en la lista de dicho autor (apuntador al libro)
+    for tag in tags:
+        lt.addLast(catalog['tags'], tag)
+
+def addCountry(catalog, countryname, video):
+    """
+    Adiciona un autor a lista de autores, la cual guarda referencias
+    a los libros de dicho autor
+    """
+    countries = catalog['countries']
+    poscountry = lt.isPresent(countries, countryname)
+
+    if poscountry > 0:
+        country = lt.getElement(countries, poscountry)
+        
+    ##########newCountry: se debe realizar más adelante
+    else:
+        country  = newContry(countryname)
+        lt.addLast(countries, country)
+    lt.addLast(country['videos'], video)
 
 # Funciones para creacion de datos
 
