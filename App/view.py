@@ -55,8 +55,6 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-
-
 catalog = None
 
 """
@@ -67,6 +65,10 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        catalog = initCatalog()
+        loadData(catalog)
+        print('Videos cargados: ' + str(lt.size(catalog['videos'])))
+        print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
 
     elif int(inputs[0]) == 2:
         pass

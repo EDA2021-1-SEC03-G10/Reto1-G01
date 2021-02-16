@@ -47,26 +47,26 @@ def loadData(catalog):
     """
     
     loadVideos(catalog)
-    loadCategory(catalog)
+    loadCategories(catalog)
     
 def loadVideos(catalog):
     """
     Carga los videos del archivo. 
     """
     videosfile = cf.data_dir + 'Videos/videos-small.csv'
-    input_file = csv.DictReader(open(booksfile, encoding='utf-8'))
+    input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
-        model.addBook(catalog, video)
+        model.addVideo(catalog, video)
 
 
-def loadCategory(catalog):
+def loadCategories(catalog):
     """
     Carga las categorías de los videos
     """
-    tagsfile = cf.data_dir + 'Videos/category-id.csv'
-    input_file = csv.DictReader(open('./Data/videos/category-id.csv', encoding='utf-8'), delimiter='\t')
-    for tag in input_file:
-        model.addTag(catalog, tag)
+    categoriesfile = cf.data_dir + 'Videos/category-id.csv'
+    input_file = csv.DictReader(open(categoriesfile, encoding='utf-8'), delimiter='\t')
+    for category in input_file:
+        model.addCategory(catalog, category)
 
 # Funciones de ordenamiento
 

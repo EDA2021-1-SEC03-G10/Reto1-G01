@@ -70,10 +70,10 @@ def addVideo(catalog, video):
     # Se adiciona el video a la lista de videos
     lt.addLast(catalog['videos'], video)
     # Se obtienen los canales de cada video y se adicionan
-    channel = video['channels']
+    channel = video['channel_title']
     lt.addLast(catalog['channels'], channel)
     # Se obtienen los paises de cada video y se adicionan
-    country = video['countries']
+    country = video['country']
     lt.addLast(catalog['countries'], country)
     #Se obtienen los tags de cada video
     tags = video['tags'].split("|")
@@ -84,7 +84,7 @@ def addVideo(catalog, video):
 
 def addCountry(catalog, countryname, video):
     """
-    Adiciona un pais a lista de videos, la cual guarda referencias
+    Adiciona un pais a lista de paises, la cual guarda referencias
     a los videos de dicho pais
     """
     countries = catalog['countries']
@@ -92,18 +92,114 @@ def addCountry(catalog, countryname, video):
 
     if poscountry > 0:
         country = lt.getElement(countries, poscountry)
-        
-    ##########newCountry: se debe realizar más adelante
 
     else:
         country  = newContry(countryname)
         lt.addLast(countries, country)
     lt.addLast(country['videos'], video)
 
+def addChannel(catalog, channelname, video):
+    """
+    Adiciona un canal a lista de canales, la cual guarda referencias
+    a los videos de dichos canales
+    """
+    channel= catalog['channels']
+    poschannel = lt.isPresent(channels, channelname)
+
+    if poschannel > 0:
+        channel = lt.getElement(channels, poschannel)
+        
+    else:
+        channel = newChannel(channelname)
+        lt.addLast(channels, channel)
+    lt.addLast(channel['videos'], video)   
+
+def addTag(catalog, tagname, video):
+    """
+    Adiciona un tag a lista de tags, la cual guarda referencias
+    a los videos de dichos tags
+    """
+    tag= catalog['tags']
+    postag = lt.isPresent(tags, tagname)
+
+    if postag > 0:
+        tag = lt.getElement(tags, postag)
+
+    else:
+        tag = newTag(tagname)
+        lt.addLast(tags, tag)
+    lt.addLast(tag['videos'], video)  
+
+
+def addCategory(catalog, category):
+    """
+    Adiciona una categoria a la lista de categorías
+    """
+    c = newCategory(category['id'], category['name'])
+    lt.addLast(catalog['categories'], c)
+
+
 # Funciones para creacion de datos
+
+def newCountry(name):
+    """
+    Crea una nueva estructura para modelar los videos de
+    un pais.
+    """
+    country = {'name': "", "videos": None}
+    country['name'] = name
+    country['videos'] = lt.newList('ARRAY_LIST')
+    return country
+
+def newChannel(name):
+    """
+    Crea una nueva estructura para modelar los videos de
+    un canal.
+    """
+    channel= {'name': "", "videos": None}
+    channel['name'] = name
+    channel['videos'] = lt.newList('ARRAY_LIST')
+    return channel
+
+def newTag(name):
+    """
+    Crea una nueva estructura para modelar los videos de
+    un tag.
+    """
+    tag= {'name': "", "videos": None}
+    tag['name'] = name
+    tag['videos'] = lt.newList('ARRAY_LIST')
+    return tag
+
+def newCategory(id, name):
+    """
+    Esta estructura almancena las categorías utilizados para marcar videos.
+    """
+    category = {'name': '', 'id': ''}
+    category['name'] = name
+    category['id'] = id
+    return category
 
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+def comparecountries(countryname, country2):
+    if (countryname.lower() in country2['name'].lower()):
+        return 0
+    return -1
+
+def comparechannels(channelname, channel2):
+    if (channelname.lower() in channel2['name'].lower()):
+        return 0
+    return -1
+
+def comparetags(tagname, tag2):
+    if (tagname.lower() in tag2['name'].lower()):
+        return 0
+    return -1
+
+def comparecategories(categoryname, category):
+    return (categoryname == category['name'])
 
 # Funciones de ordenamiento
