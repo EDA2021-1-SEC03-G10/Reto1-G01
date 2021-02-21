@@ -43,11 +43,22 @@ def printMenu():
     print("5- Consultar videos con más likes en un pais")
     print("0- Salir")
 
-def initCatalog():
+def initCatalog(tipo_representacion):
     """
     Inicializa el catalogo de videos
     """
-    return controller.initCatalog()
+    return controller.initCatalog(tipo_representacion)
+
+def printResults(ord_videos, sample=3): 
+    size = lt.size(ord_videos) 
+    if size > sample: 
+        print("Los primeros ", sample, " videos ordenados son:") 
+        i=0 
+        while i <= sample: 
+            video = lt.getElement(ord_videos,i) 
+            print('Trending_date: ' + video['trending_date'] + ' Title: ' + video['title'] + ' Channel_title: ' + video['channel_title'] + 'publish_time: ' + video['publish_time'] +
+                    'views: '+ video['views'] + 'likes: '+ video['likes'] + 'dislikes: '+ video['dislikes']) 
+            i+=1
 
 def loadData(catalog):
     """
@@ -64,13 +75,28 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        print("1- ARRAY_LIST")
+        print("2- LINKED_LIST")
+        tipo_representacion = input ("Seleccione el tipo de representación deseado para la lista\n")
         print("Cargando información de los archivos ....")
-        catalog = initCatalog()
+        catalog = initCatalog(tipo_representacion)
         loadData(catalog)
         print('Videos cargados: ' + str(lt.size(catalog['videos'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['categories'])))
 
-    elif int(inputs[0]) == 2:
+    elif int(inputs[0]) == 2: 
+        size = int(input("Indique tamaño de la muestra: ")) 
+        if size > lt.size(catalog['videos']):
+            print ("el tamaño de muestra solicitado excede la cantidad de datos de videos cargados")
+        else:
+            print("1- selection_sort")
+            print("2- insertion_sort")
+            print("3- shell_sort")
+            tipo_ordenamiento = input ("Seleccione el tipo de algoritmo de ordenamiento que desea\n")
+            result = controller.sortVideos(catalog, int(size), tipo_ordenamiento) 
+            print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
+            printResults(result[1],size)
+
         pass
 
     else:

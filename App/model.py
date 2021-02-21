@@ -25,8 +25,12 @@
  """
 
 import config as cf
+import time
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import selectionsort as ss
+from DISClib.Algorithms.Sorting import insertionsort as ins
+
 assert cf
 
 """
@@ -36,7 +40,7 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(tipo_representacion):
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar
     todos los videos. Adicionalmente crea una lista vacia para guardar el título, el canal, 
@@ -48,17 +52,30 @@ def newCatalog():
                'categories':None,
                'countries':None,
                'tags': None}
+    if tipo_representacion == 2:
 
-    catalog['videos'] = lt.newList()
-    ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
-    catalog['channels'] = lt.newList('SINGLE_LINKED',
+        catalog['videos'] = lt.newList()
+        ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
+        catalog['channels'] = lt.newList('LINKED_LIST',
+                                        cmpfunction = None)
+        catalog['categories'] = lt.newList('LINKED_LIST',
                                     cmpfunction = None)
-    catalog['categories'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction = None)
-    catalog['countries'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction = None)
-    catalog['tags'] = lt.newList('SINGLE_LINKED',
-                                 cmpfunction=None)
+        catalog['countries'] = lt.newList('LINKED_LIST',
+                                    cmpfunction = None)
+        catalog['tags'] = lt.newList('LINKED_LIST',
+                                    cmpfunction=None)
+
+    else:
+        catalog['videos'] = lt.newList()
+        ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
+        catalog['channels'] = lt.newList('ARRAY_LIST',
+                                        cmpfunction = None)
+        catalog['categories'] = lt.newList('ARRAY_LIST',
+                                    cmpfunction = None)
+        catalog['countries'] = lt.newList('ARRAY_LIST',
+                                    cmpfunction = None)
+        catalog['tags'] = lt.newList('ARRAY_LIST',
+                                    cmpfunction=None)
 
 
     return catalog
@@ -202,4 +219,31 @@ def comparetags(tagname, tag2):
 def comparecategories(categoryname, category):
     return (categoryname == category['name'])
 
+def cmpVideosByViews(video1, video2):
+    """ 
+     Devuelve verdadero (True) si los 'views' de video1 son menores que los del video2 
+     Args: 
+     video1: informacion del primer video que incluye su valor 'views' 
+     video2: informacion del segundo video que incluye su valor 'views' """
+
+    if video1['views'] < video2['views']:
+        return True
+    return False
+
 # Funciones de ordenamiento
+
+def sortVideos(catalog, size, tipo_ordenamiento): 
+    sub_list = lt.subList(catalog['videos'], 0, size) 
+    sub_list = sub_list.copy() 
+    start_time = time.process_time() 
+    if tipo_ordenamiento == 1:
+        sorted_list = ss.sort(sub_list, cmpVideosByViews) 
+    elif tipo_ordenamiento == 2:
+        sorted_list = ins.sort(sub_list, cmpVideosByViews)
+    else:
+        sorted_list = sa.sort(sub_list, cmpVideosByViews)
+    stop_time = time.process_time() 
+    elapsed_time_mseg = (stop_time - start_time)*1000 
+    return elapsed_time_mseg, sorted_list
+
+    
