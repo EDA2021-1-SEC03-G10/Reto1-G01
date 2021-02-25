@@ -24,7 +24,11 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+import sys
 assert cf
+
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 
 
 """
@@ -92,6 +96,8 @@ while True:
             print("1- selection_sort")
             print("2- insertion_sort")
             print("3- shell_sort")
+            print("4- Merge_sort")
+            print("5- Quick_sort")
             tipo_ordenamiento = input ("Seleccione el tipo de algoritmo de ordenamiento que desea\n")
             result = controller.sortVideos(catalog, int(size), tipo_ordenamiento) 
             print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ", str(result[0])) 
