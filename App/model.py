@@ -250,7 +250,6 @@ def sortVideos(catalog, size, tipo_ordenamiento):
     else:
         sorted_list = qs.sort(sub_list, cmpVideosByViews)
 
-
     stop_time = time.process_time() 
     elapsed_time_mseg = (stop_time - start_time)*1000 
     return elapsed_time_mseg, sorted_list
