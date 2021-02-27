@@ -58,27 +58,27 @@ def newCatalog(tipo_representacion):
     if tipo_representacion == 2:
 
         catalog['videos'] = lt.newList()
-        ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
+
         catalog['channels'] = lt.newList('LINKED_LIST',
-                                        cmpfunction = None)
+                                        cmpfunction = comparechannels)
         catalog['categories'] = lt.newList('LINKED_LIST',
-                                    cmpfunction = None)
+                                    cmpfunction = comparecategories)
         catalog['countries'] = lt.newList('LINKED_LIST',
-                                    cmpfunction = None)
+                                    cmpfunction = comparecountries)
         catalog['tags'] = lt.newList('LINKED_LIST',
-                                    cmpfunction=None)
+                                    cmpfunction=comparetags)
 
     else:
         catalog['videos'] = lt.newList()
-        ############ Hace falta más adelante realizar las funciones de comparación e incluirlas aqui
+
         catalog['channels'] = lt.newList('ARRAY_LIST',
-                                        cmpfunction = None)
+                                        cmpfunction = comparechannels)
         catalog['categories'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction = None)
+                                    cmpfunction = comparecategories)
         catalog['countries'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction = None)
+                                    cmpfunction = comparecountries)
         catalog['tags'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction=None)
+                                    cmpfunction=comparetags)
 
 
     return catalog

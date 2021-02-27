@@ -93,9 +93,9 @@ while True:
         if size > lt.size(catalog['videos']):
             print ("el tamaño de muestra solicitado excede la cantidad de datos de videos cargados")
         else:
-            print("1- selection_sort")
-            print("2- insertion_sort")
-            print("3- shell_sort")
+            print("1- Selection_sort")
+            print("2- Insertion_sort")
+            print("3- Shell_sort")
             print("4- Merge_sort")
             print("5- Quick_sort")
             tipo_ordenamiento = input ("Seleccione el tipo de algoritmo de ordenamiento que desea\n")
