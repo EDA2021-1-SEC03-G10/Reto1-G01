@@ -82,6 +82,7 @@ def newCatalog(tipo_representacion):
 
 
     return catalog
+    
 
 # Funciones para agregar informacion al catalogo
 
